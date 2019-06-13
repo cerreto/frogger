@@ -81,12 +81,12 @@ func tic() {
 		}
 	}
 	DrawImage(frog,Point{fr.x,fr.y})
-	DrawText("Best Sc:"+strconv.Itoa(bestSc), Point{w*80/100, w*88/100}, w*4/100)
-	DrawText("Sc:" + strconv.Itoa(Sc), Point{w*80/100, w*92/100}, w*4/100)
-	DrawLine(Point{0, w*86/100}, Point{w, w*86/100})
+	DrawText("Best Score:"+strconv.Itoa(bestSc), Point{w*86/100, h*77/100}, w*4/100)
+	DrawText("Score:" + strconv.Itoa(Sc), Point{w*86/100, h*80/100}, w*4/100)
+	DrawLine(Point{0, w*86/100}, Point{h, w*86/100})
 
-	for i := 0; i < 30; i++ {
-		DrawLine(Point{i*w/25, w*15/100}, Point{i*(w/25)+w*2/100,w*15/100})
+	for i := 0; i < 32; i+=2 {
+		DrawLine(Point{i*(h/32), w*15/100}, Point{h/32+(i*h/32),w*15/100})
 	}
 
 }
