@@ -3,113 +3,110 @@ package main
 import . "g2d"
 import "strconv"
 
-var bestSc = 0
-var Sc = 0
+var bestScore = 0
+var Score = 0
 var h = 512
 var w = 448
-var screen = Size{w, h}
+var Canvas = Size{ w, h }
 var x, y = 15, 15
 var vx, vy = 5, 5
-var frog = LoadImage("https://i.imgur.com/I2cubui.png")
-var car1 = LoadImage("https://i.imgur.com/aUYxC98.png")
-var car2 = LoadImage("https://i.imgur.com/XW22W2b.png")
-var car3 = LoadImage("https://i.imgur.com/8SLloTU.png")
-var bkg = LoadImage("https://i.imgur.com/vAZz8KH.png")
+var frog = LoadImage( "https://i.imgur.com/I2cubui.png" )
+var car1 = LoadImage( "https://i.imgur.com/aUYxC98.png" )
+var car2 = LoadImage( "https://i.imgur.com/XW22W2b.png" )
+var truck = LoadImage( "https://i.imgur.com/8SLloTU.png" )
+var background = LoadImage( "https://i.imgur.com/vAZz8KH.png" )
 
-//entity class
 type ent struct {
-	x, y   int
-	h, w   int
-	ix, iy int
-	dx, dy int
+  x, y   int
+  h, w   int
+  ix, iy int
+  dx, dy int
 }
 
-//creates entities
-func newent(pos Point, h, w int, ix, iy int, dx, dy int) *ent {
-	b := &ent{pos.X, pos.Y, h, w, ix, iy, dx, dy}
-	return b
+func newent( pos Point, h, w int, ix, iy int, dx, dy int ) *ent {
+  b := &ent{ pos.X, pos.Y, h, w, ix, iy, dx, dy }
+  return b
 }
 
-//moves entities
-func (b *ent) Move() {
-	if b.x > (w + 200) {
-		b.x = -100
-	}
-	if b.x < (-200) {
-		b.x = w + 100
-	}
-	b.x += b.dx
-	if (fr.x > b.x && fr.x < b.x+b.w) && fr.y == b.y {
-		fr.x = fr.ix
-		fr.y = fr.iy
-		Sc = 0
-	}
+func ( b *ent ) Move() {
+  if b.x > ( w + 200 ) {
+    b.x = -100
+  }
+  if b.x < ( -200 ) {
+    b.x = w + 100
+  }
+  b.x += b.dx
+  if (frog.x > b.x && frog.x < b.x + b.w ) && frog.y == b.y {
+    frog.x = frog.ix
+    frog.y = frog.iy
+    Score = 0
+  }
 }
 
-func environment() {
-	b1.Move()
-	b2.Move()
-	b3.Move()
-	b4.Move()
-	b5.Move()
-    b6.Move()
-    DrawImage(bkg, Point{0, 0})
-	DrawImage(car1, Point{b1.x, b1.y})
-	DrawImage(car2, Point{b2.x, b2.y})
-	DrawImage(car3, Point{b3.x, b3.y})
-	DrawImage(car3, Point{b4.x, b4.y})
-	DrawImage(car1, Point{b5.x, b5.y})
-    DrawImage(car2, Point{b6.x, b6.y})
+func Environment() {
+  car11.Move()
+  car12.Move()
+  car21.Move()
+  car22.Move()
+  truck1.Move()
+  truck2.Move()
+  DrawImage( background, Point{ 0, 0 } )
+  DrawImage( car1, Point{ car11.x, car11.y } )
+  DrawImage( car2, Point{ car21.x, car21.y } )
+  DrawImage( car1, Point{ car12.x, car12.y } )
+  DrawImage( car2, Point{ car22.x, car22.y } )
+  DrawImage( truck, Point{ truck1.x, truck1.y } )
+  DrawImage( truck, Point{ truck2.x, truck2.y } )
 }
 
-var b1 = newent(Point{70, h * 16 / 32}, 32, 64, 70, h*16/32, 10, 0)
-var b2 = newent(Point{50, h * 12 / 32}, 32, 32, 50, h*12/32, -10, 0)
-var b3 = newent(Point{40, h * 14 / 32}, 32, 32, 40, h*14/32, -5, 0)
-var b4 = newent(Point{100, h * 6 / 32}, 32, 32, 40, h*6/32, -6, 0)
-var b5 = newent(Point{200, h * 8 / 32}, 32, 64, 70, h*8/32, 10, 0)
-var b6 = newent(Point{100, h * 22 / 32}, 32, 32, 50, h*22/32, -10, 0)
-var fr = newent(Point{ ( w / 2 ) - 8 , h * 26 / 32}, 32, 32, (w+32)/2, h*26/32, 0, 0)
+var car11 = newent( Point{ 70, h * 16 / 32 }, 32, 64, 70, h * 16 / 32, 10, 0 )
+var car12 = newent( Point{ 200, h * 8 / 32 }, 32, 64, 70, h * 8 / 32, 10, 0 )
+var car21 = newent( Point{ 50, h * 12 / 32 }, 32, 32, 50, h * 12 / 32, -10, 0 )
+var car22 = newent( Point{ 100, h * 22 / 32 }, 32, 32, 50, h * 22 / 32, -10, 0 )
+var truck1 = newent( Point{ 40, h * 14 / 32 }, 32, 32, 40, h * 14 / 32, -5, 0 )
+var truck2 = newent( Point{ 100, h * 6 / 32 }, 32, 32, 40, h * 6 / 32, -6, 0 )
+var frog = newent( Point{ ( w / 2 ) - 8 , h * 26 / 32 }, 32, 32, ( w +32 ) / 2, h * 26 / 32, 0, 0 )
 
 var jump = 32
 
-func tic() {
-	ClearCanvas()
-	environment()
-	if KeyPressed("w") || KeyPressed("ArrowUp") {
-		fr.y -= jump
-	}
-	if KeyPressed("s") || KeyPressed("ArrowDown") {
-		if fr.y+fr.h+jump <= h {
-			fr.y += jump
-		}
-	}
-	if KeyPressed("a") || KeyPressed("ArrowLeft") {
-		if 0 <= fr.x-jump {
-			fr.x -= jump
-		}
-	}
-	if KeyPressed("d") || KeyPressed("ArrowRight") {
-		if fr.x+fr.w+jump <= w {
-			fr.x += jump
-		}
-	}
-	if fr.y+fr.h < w*15/100 {
-		Sc++
-		fr.x = fr.ix
-		fr.y = fr.iy
-		if Sc > bestSc {
-			bestSc = Sc
-		}
-	}
-	DrawImage(frog, Point{fr.x, fr.y})
-    SetColor(Color{255, 255, 255})
-	DrawText("Best Score: " + strconv.Itoa(bestSc), Point{w * 70 / 100, h * 85 / 100}, w*4/100)
-	DrawText("Score: " + strconv.Itoa(Sc), Point{w * 70 / 100, h * 90 / 100}, w*4/100)
-	DrawLine(Point{0, w * 86 / 100}, Point{h, w * 86 / 100})
+func Tick() {
+  ClearCanvas()
+  Environment()
+  if KeyPressed( "w" ) || KeyPressed( "ArrowUp" ) {
+    frog.y -= jump
+  }
+  if KeyPressed( "s" ) || KeyPressed( "ArrowDown" ) {
+    if frog.y + frog.h + jump <= h {
+      frog.y += jump
+    }
+  }
+  if KeyPressed( "a" ) || KeyPressed( "ArrowLeft" ) {
+    if 0 <= frog.x-jump {
+      frog.x -= jump
+    }
+  }
+  if KeyPressed( "d" ) || KeyPressed( "ArrowRight" ) {
+    if frog.x + frog.w + jump <= w {
+      frog.x += jump
+    }
+  }
+  if frog.y+frog.h < w * 15 / 100 {
+    Score++
+    frog.x = frog.ix
+    frog.y = frog.iy
+    if Score > bestScore {
+      bestScore = Score
+    }
+  }
+  DrawImage( frog, Point{ frog.x, frog.y } )
+    SetColor( Color{ 255, 255, 255 } )
+  DrawText( "Best Score: " + strconv.Itoa( bestScore ), Point{ w * 70 / 100, h * 85 / 100 }, w * 4 / 100 )
+  DrawText( "Score: " + strconv.Itoa( Score ), Point{ w * 70 / 100, h * 90 / 100 }, w * 4 / 100 )
+  DrawLine( Point{ 0, w * 86 / 100 }, Point{ h, w * 86 / 100 } )
 }
 
 func main() {
-	InitCanvas(screen)
-	SetFrameRate(60)
-	MainLoop(tic)
+  InitCanvas( Canvas )
+  SetFrameRate( 60 )
+  MainLoop( Tick )
 }
