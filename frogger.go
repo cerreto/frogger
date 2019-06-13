@@ -10,7 +10,7 @@ var w = 448
 var Canvas = Size{ w, h }
 var x, y = 15, 15
 var vx, vy = 5, 5
-var frog = LoadImage( "https://i.imgur.com/I2cubui.png" )
+var frogimg = LoadImage( "https://i.imgur.com/I2cubui.png" )
 var car1 = LoadImage( "https://i.imgur.com/aUYxC98.png" )
 var car2 = LoadImage( "https://i.imgur.com/XW22W2b.png" )
 var truck = LoadImage( "https://i.imgur.com/8SLloTU.png" )
@@ -65,7 +65,7 @@ var car21 = newent( Point{ 50, h * 12 / 32 }, 32, 32, 50, h * 12 / 32, -10, 0 )
 var car22 = newent( Point{ 100, h * 22 / 32 }, 32, 32, 50, h * 22 / 32, -10, 0 )
 var truck1 = newent( Point{ 40, h * 14 / 32 }, 32, 32, 40, h * 14 / 32, -5, 0 )
 var truck2 = newent( Point{ 100, h * 6 / 32 }, 32, 32, 40, h * 6 / 32, -6, 0 )
-var frog = newent( Point{ ( w / 2 ) - 8 , h * 26 / 32 }, 32, 32, ( w +32 ) / 2, h * 26 / 32, 0, 0 )
+var frog = newent( Point{ ( w / 2 ) - 8 , h * 26 / 32 }, 32, 32, ( w / 2 ) - 8, h * 26 / 32, 0, 0 )
 
 var jump = 32
 
@@ -98,8 +98,8 @@ func Tick() {
       bestScore = Score
     }
   }
-  DrawImage( frog, Point{ frog.x, frog.y } )
-    SetColor( Color{ 255, 255, 255 } )
+  DrawImage( frogimg, Point{ frog.x, frog.y } )
+  SetColor( Color{ 255, 255, 255 } )
   DrawText( "Best Score: " + strconv.Itoa( bestScore ), Point{ w * 70 / 100, h * 85 / 100 }, w * 4 / 100 )
   DrawText( "Score: " + strconv.Itoa( Score ), Point{ w * 70 / 100, h * 90 / 100 }, w * 4 / 100 )
   DrawLine( Point{ 0, w * 86 / 100 }, Point{ h, w * 86 / 100 } )
