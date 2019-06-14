@@ -6,7 +6,7 @@ import "strconv"
 var bestScore = 0
 var Score = 0
 var h = 512
-var w = 448
+var w = 416
 var Canvas = Size{ w, h }
 var x, y = 15, 15
 var vx, vy = 5, 5
@@ -50,7 +50,7 @@ func Environment() {
   car22.Move()
   truck1.Move()
   truck2.Move()
-  DrawImage( background, Point{ 0, 0 } )
+  DrawImage( background, Point{ -14, 0 } )
   DrawImage( car1, Point{ car11.x, car11.y } )
   DrawImage( car2, Point{ car21.x, car21.y } )
   DrawImage( car1, Point{ car12.x, car12.y } )
@@ -65,7 +65,7 @@ var car21 = newent( Point{ 50, h * 12 / 32 }, 32, 32, 50, h * 12 / 32, -10, 0 )
 var car22 = newent( Point{ 100, h * 22 / 32 }, 32, 32, 50, h * 22 / 32, -10, 0 )
 var truck1 = newent( Point{ 40, h * 14 / 32 }, 32, 32, 40, h * 14 / 32, -5, 0 )
 var truck2 = newent( Point{ 100, h * 6 / 32 }, 32, 32, 40, h * 6 / 32, -6, 0 )
-var frog = newent( Point{ ( w / 2 ) - 8 , h * 26 / 32 }, 32, 32, ( w / 2 ) - 8, h * 26 / 32, 0, 0 )
+var frog = newent( Point{ ( w / 2 ) - 16 , h * 26 / 32 }, 32, 32, ( w / 2 ) - 16, h * 26 / 32, 0, 0 )
 
 var jump = 32
 
@@ -90,7 +90,7 @@ func Tick() {
       frog.x += jump
     }
   }
-  if frog.y+frog.h < w * 15 / 100 {
+  if frog.y + frog.h < w * 15 / 100 {
     Score++
     frog.x = frog.ix
     frog.y = frog.iy
@@ -102,7 +102,7 @@ func Tick() {
   SetColor( Color{ 255, 255, 255 } )
   DrawText( "Best Score: " + strconv.Itoa( bestScore ), Point{ w * 70 / 100, h * 85 / 100 }, w * 4 / 100 )
   DrawText( "Score: " + strconv.Itoa( Score ), Point{ w * 70 / 100, h * 90 / 100 }, w * 4 / 100 )
-  DrawLine( Point{ 0, w * 86 / 100 }, Point{ h, w * 86 / 100 } )
+  DrawLine( Point{ 0, w * 93 / 100 }, Point{ h, w * 93 / 100 } )
 }
 
 func main() {
